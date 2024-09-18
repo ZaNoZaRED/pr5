@@ -8,8 +8,8 @@
 <div class="product-cards">
     @foreach ($product as $input)
         <div class="{{ $input['amount'] > 0 ? 'card' : 'bruh' }}">
-            <h2>{{ $input['name'] }}</h2>
-            <p>Цена: {{ number_format($input['cost'] / 1000000, 0, ',', ' ') }} ₽</p>
+        <h2><a href="{{ url('/products/' . $input->id) }}">{{ $input->name }}</a></h2>
+            <p>Цена: {{($input['cost'])}} ₽</p>
             <p>{{ $input['amount'] > 0 ? 'В наличии' : 'Нет в наличии' }}</p>
         </div>
     @endforeach
