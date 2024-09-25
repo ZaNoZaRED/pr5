@@ -14,5 +14,19 @@
 
         <a href="/products">Назад к списку товаров</a>
     </div>
+    <h1>{{ $product->name }}</h1>
+    <p>Стоимость: {{ $product->cost }}</p>
+    <p>Количество на складе: {{ $product->amount }}</p>
+
+    <!-- Форма заказа -->
+    <form action="{{ route('orders.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="product_id" value="{{ $product->id }}">
+        
+        <label for="quantity">Количество:</label>
+        <input type="number" name="quantity" id="quantity" min="1" max="{{ $product->amount }}" required>
+        
+        <button type="submit">Заказать</button>
+    </form>
 </body>
 </html>
