@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<nav>
+    <ul style="list-style: none; display: flex">
+        @if(Auth::check())
+            <li>
+                <form action="{{ route('logout') }}" method="POST" style="display:flex;">
+                    @csrf
+                    <button type="submit">Выход</button>
+                    <a href="{{ route('orders.index') }}" style="text-decoration: none; margin-left: 20px;">Мои Заказы</a>
+                </form>
+            </li>
+        @else
+            <li><a href="{{ route('login') }}" style="margin-left: 20px; text-decoration: none;">Вход</a></li>
+            <li><a href="{{ route('register') }}" style="margin-left: 20px; text-decoration: none;">Регистрация</a></li>
+        @endauth
+    </ul>
+</nav>
 <div class="product-cards">
     @foreach ($product as $input)
         <div class="{{ $input['amount'] > 0 ? 'card' : 'bruh' }}">

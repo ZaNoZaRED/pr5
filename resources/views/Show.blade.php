@@ -6,6 +6,23 @@
     <title>{{ $product->name }}</title>
 </head>
 <body>
+<nav>
+    <ul style="list-style: none; display: flex">
+        @if(Auth::check())
+            <li>
+                <form action="{{ route('logout') }}" method="POST" style="display:flex;">
+                    @csrf
+                    <button type="submit">Выход</button>
+                    <a href="{{ route('orders.index') }}" style="text-decoration: none; margin-left: 20px;">Мои Заказы</a>
+                </form>
+            </li>
+        @else
+            <li><a href="{{ route('login') }}" style="margin-left: 20px; text-decoration: none;">Вход</a></li>
+            <li><a href="{{ route('register') }}" style="margin-left: 20px; text-decoration: none;">Регистрация</a></li>
+        @endauth
+    </ul>
+</nav>
+
     <div class="product-detail" style="text-align: center;">
         <h1>{{ $product->name }}</h1>
         <p>Цена: {{ number_format($product->cost, 2, ',', ' ') }} ₽</p>
@@ -13,9 +30,11 @@
         <p>{{ $product->amount > 0 ? 'В наличии' : 'Нет в наличии' }}</p>
 
         <a href="/products">Назад к списку товаров</a>
+        @if(Auth::check())
     </div>
     <h1>{{ $product->name }}</h1>
     <p>Стоимость: {{ $product->cost }}</p>
+    @if($product->amount > 0)
     <p>Количество на складе: {{ $product->amount }}</p>
 
     <!-- Форма заказа -->
@@ -28,5 +47,11 @@
         
         <button type="submit">Заказать</button>
     </form>
+    @else
+    <p>Товар отсутствует. Заказ невозможен.</p>
+    @endif
+    @else
+    <p>Для того, чтобы заказать, вам нужно <a href="/login">авторизоваться</a>
+    @endauth
 </body>
 </html>
