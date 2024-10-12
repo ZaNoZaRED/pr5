@@ -43,7 +43,7 @@
         <input type="hidden" name="product_id" value="{{ $product->id }}">
         
         <label for="quantity">Количество:</label>
-        <input type="number" name="quantity" id="quantity" min="1" max="{{ $product->amount }}" required>
+        <input type="number" name="quantity" id="quantity" min="1" required>
         
         <button type="submit">Заказать</button>
     </form>

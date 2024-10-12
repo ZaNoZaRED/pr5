@@ -6,7 +6,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistController;
 use App\Http\Controllers\ExitController;
-
+use App\Http\Controllers\AdminController;
 /*Route::get('/Product', function () {
 
     return view('Product', ['product' => $input]);
@@ -36,7 +36,10 @@ Route::post('/regist', [RegistController::class, 'store'])->name('register.store
 Route::post('/logout', [ExitController::class, 'destroy'])
     ->name('logout');
 
-    Route::middleware('auth')->group(function () {
-        Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-    });
-    
+Route::middleware('auth')->group(function () {
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+});
+Route::get('/admin', [AdminController::class, 'index'])->middleware('auth');
+
+Route::get('/admin', [AdminController::class, 'show'])->name('admin.orders');
+Route::post('/admin', [AdminController::class, 'update'])->name('admin.update');
