@@ -11,16 +11,14 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        $isAdmin = $user && $user->is_admin;
-        if (!Auth::check() || (Auth::user()->role !== 'admin')) {
-            return redirect('/products')->with('error', 'You do not have admin access.');
-        }
         return view('admin');
     }
     public function show()
     {
-        $orders = Order::with('product')->get(); // Если есть связь с продуктами
+        $orders = Order::cursorPaginate(10);
+        if (!Auth::check() || (Auth::user()->role !== 'admin')) {
+            return redirect('/products')->with('error', 'You do not have admin access.');
+        }
         return view('admin', compact('orders'));
     }
     public function update(Request $request)
@@ -30,7 +28,7 @@ class AdminController extends Controller
         // Проверяем, что заказ найден
         if ($order) {
             // Меняем статус на "Одобрен", если он "Новый"
-            if ($order->status === 'новый' && $order->product->quantity >= $order->quantity) {
+            if ($order->status === 'новый' && $order->product->quantity < $order->quantity) {
                 $order->status = 'одобрен';
                 $order->save();
                 return redirect()->route('admin.orders')->with('success', 'Статус заказа обновлён на "Одобрен".');
@@ -42,7 +40,7 @@ class AdminController extends Controller
                 return redirect()->route('admin.orders')->with('success', 'Статус заказа обновлён на "Доставлен".');
             }
             
-            elseif ($order->status === 'новый' && $order->product->quantity < $order->quantity) {
+            elseif ($order->status === 'новый' && $order->product->quantity >= $order->quantity) {
                 return redirect()->route('admin.orders')->with('success', 'Недостаточно единиц товара в складе.');
             }
             else {

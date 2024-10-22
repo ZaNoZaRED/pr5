@@ -26,11 +26,13 @@
         <div class="{{ $input['amount'] > 0 ? 'card' : 'bruh' }}">
         <h2><a href="{{ url('/products/' . $input->id) }}">{{ $input->name }}</a></h2>
             <p>Цена: {{($input['cost'])}} ₽</p>
-            <p>{{ $input['amount'] > 0 ? 'В наличии' : 'Нет в наличии' }}</p>
+            <p>{{ $input['amount'] > 0 ? 'В наличии' : 'Отсутствует' }}</p>
         </div>
     @endforeach
 </div>
-
+<div class="Paginate">
+{{ $product->links() }}
+</div>
 <style>
     .product-cards {
         display: flex;
@@ -44,6 +46,9 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         border: 1px solid #ccc; padding: 10px; margin: 10px; width: 200px;
         background-color: grey;
+    }
+    .Paginate {
+        text-align: center;
     }
 </style>
 </body>

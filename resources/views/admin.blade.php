@@ -13,6 +13,7 @@
                 <th>Статус</th>
             </tr>
         </thead>
+        {{ $orders->links() }}
         <tbody>
             @foreach($orders as $order)
                 <tr>

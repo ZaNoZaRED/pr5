@@ -24,5 +24,8 @@ public function store(Request $request)
         // Успешный вход, перенаправление на основную страницу
         return redirect('/products')->with('success', 'Вы успешно вошли в систему!');
     }
+    return redirect()->back()->withErrors([
+        'email' => 'Эти учетные данные не соответствуют нашим записям.',
+    ])->withInput();
 }
 }

@@ -21,14 +21,12 @@ public function store(Request $request)
         'quantity' => $request->quantity,
         // Дополнительно можно добавить пользователя и другие поля
     ]);
-
     return redirect()->route('products')->with('success', 'Заказ успешно создан!');
 }
 public function index()
 {
     // Получаем заказы текущего пользователя
-    $orders = Order::where('user_id', Auth::id())->get();
-    
+    $orders = Order::where('user_id', Auth::id())->cursorPaginate(5);
     return view('orders', compact('orders'));
 }
 }

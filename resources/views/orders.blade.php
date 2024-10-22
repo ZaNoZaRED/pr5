@@ -4,6 +4,7 @@
     @if($orders->isEmpty())
         <p>У вас пока нет заказов.</p>
     @else
+    {{ $orders->links() }}
     <table>
     <thead>
         <tr>
