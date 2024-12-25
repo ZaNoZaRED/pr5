@@ -34,22 +34,95 @@
 {{ $product->links() }}
 </div>
 <style>
+    /* Общий стиль для контейнера карточек */
     .product-cards {
         display: flex;
         justify-content: space-around;
+        flex-wrap: wrap; /* Чтобы карточки не выходили за пределы экрана */
+        gap: 20px; /* Добавим пространство между карточками */
+        padding: 20px;
     }
+
+    /* Стиль для отдельной карточки */
     .card {
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        border: 1px solid #ccc; padding: 10px; margin: 10px; width: 200px;
+        width: 250px; /* Чуть больше для лучшего вида */
+        background-color: #fff; /* Белый фон для карточек */
+        border-radius: 8px; /* Округленные углы */
+        box-shadow: 0 4px 8px rgba(4, 0, 255, 0.1); /* Мягкая тень */
+        padding: 20px;
+        margin: 10px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
     }
+
+    /* Эффект при наведении на карточку */
+    .card:hover {
+        transform: translateY(-10px); /* Поднимаем карточку вверх при наведении */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Увеличиваем тень */
+    }
+
+    /* Стиль для карточки с серым фоном */
     .bruh {
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        border: 1px solid #ccc; padding: 10px; margin: 10px; width: 200px;
-        background-color: grey;
+        width: 250px;
+        background-color: #ccc; /* Серый фон */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 10px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    /* Эффект при наведении на серую карточку */
+    .bruh:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Стиль для пагинации */
     .Paginate {
         text-align: center;
+        margin-top: 20px;
     }
+
+    .Paginate .pagination {
+        display: inline-flex;
+        list-style: none;
+        padding: 0;
+    }
+
+    .Paginate .pagination li {
+        margin: 0 5px;
+    }
+
+    .Paginate .pagination a, .Paginate .pagination span {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #007BFF; /* Цвет фона для кнопок */
+        color: #fff;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Эффект при наведении на кнопки пагинации */
+    .Paginate .pagination a:hover, .Paginate .pagination span:hover {
+        background-color: #0056b3;
+    }
+
+    /* Стиль для активной страницы пагинации */
+    .Paginate .pagination .active a {
+        background-color: #28a745; /* Цвет для активной страницы */
+        color: #fff;
+    }
+
+    /* Стиль для кнопки пагинации "disabled" */
+    .Paginate .pagination .disabled a {
+        background-color: #e0e0e0;
+        color: #9e9e9e;
+        cursor: not-allowed;
+    }
+
 </style>
 </body>
 </html>
